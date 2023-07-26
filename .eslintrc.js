@@ -1,19 +1,22 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-  },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
   ],
-  overrides: [],
+  plugins: ['react', 'react-hooks'],
   parserOptions: {
-    ecmaVersion: 'latest',
+    ecmaVersion: 11,
     sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
-  plugins: ['react'],
+  env: {
+    browser: true,
+    es2020: true,
+  },
   rules: {
     'no-undef': 'warn',
     'react/react-in-jsx-scope': 'off',
@@ -25,4 +28,10 @@ module.exports = {
       },
     ],
   },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  ignorePatterns: ['dist/*'],
 };
