@@ -1,3 +1,3 @@
-export const App = () => (
-  <h1>Vite + React</h1>
-);
+export const App = () => {
+  return <h1>Vite + React</h1>;
+}
