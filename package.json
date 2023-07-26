@@ -6,7 +6,9 @@
   "author": "mthaip <fanmt.fmt@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 8080"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.3",
