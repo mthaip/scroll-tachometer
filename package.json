@@ -1,0 +1,19 @@
+{
+  "name": "scroll-tachometer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mthaip/scroll-tachometer.git",
+  "author": "mthaip <fanmt.fmt@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.3",
+    "vite": "^4.4.7"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
