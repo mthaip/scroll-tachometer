@@ -57,12 +57,19 @@ body {
     opacity: 0;
     animation: init-helper-text-animation 750ms ease forwards;
   }
+
+  @media only screen and (max-width: 768px) {
+    transform: translateY(-5rem);
+
+    h3 {
+      font-size: 1rem;
+    }
+  }
 }
 
 .tachometer {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
+  width: 12.5rem;
+  height: 12.5rem;
 
   display: flex;
   flex-direction: column;
@@ -70,6 +77,11 @@ body {
   align-items: center;
 
   position: relative;
+
+  @media only screen and (max-width: 768px) {
+    width: 10.5rem;
+    height: 10.5rem;
+  }
 }
 
 .tachometer i {
@@ -97,6 +109,11 @@ body {
 
   animation: init-indicator-animation 250ms ease forwards;
   animation-delay: calc(var(--i) * 15ms);
+
+  @media only screen and (max-width: 768px) {
+    width: 0.3rem;
+    height: 1.5rem;
+  }
 }
 
 .tachometer .highlighted::after {
@@ -125,6 +142,10 @@ body {
     display: block;
     font-size: 1rem;
     font-weight: 100;
+  }
+
+  @media only screen and (max-width: 768px) {
+    font-size: 3.5rem;
   }
 }
 
