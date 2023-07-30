@@ -1,0 +1,145 @@
+:root {
+  --tlt-br-cnt: 50;
+  --i: 0;
+  --main-color: rgb(20, 158, 202);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100%;
+  background: rgb(22, 24, 29);
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+
+  scrollbar-width: none; // FireFox
+  &::-webkit-scrollbar {
+    display: none;
+  }
+} 
+
+.expandable {
+  width: 1rem;
+}
+
+.trigger {
+  width: 1rem;
+  height: 0.5rem;
+}
+
+.tachometer-conatainer {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  h3 {
+    color: rgb(246, 247, 249);
+    opacity: 0;
+    animation: init-helper-text-animation 750ms ease forwards;
+  }
+}
+
+.tachometer {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+
+.tachometer i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: rotate(calc(45deg + calc(calc(360deg / var(--tlt-br-cnt)) * var(--i))));
+}
+
+.tachometer i::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(52, 58, 70, 0.45);
+  width: 0.35rem;
+  height: 1.5rem;
+  border-radius: 1rem;
+  transform: rotate(-45deg);
+  transform-origin: top;
+  opacity: 0;
+  transition: all 250ms ease-in-out;
+
+  animation: init-indicator-animation 250ms ease forwards;
+  animation-delay: calc(var(--i) * 15ms);
+}
+
+.tachometer .highlighted::after {
+  background: var(--main-color);
+  box-shadow: 0 0 1px rgba(8, 126, 164, 0.5),
+              0 0 3px rgba(8, 126, 164, 0.3),
+              0 0 4px rgba(8, 126, 164, 0.1);
+}
+
+.velocity {
+  font-size: 5rem;
+  animation: init-indicator-animation 350ms ease forwards;
+  animation-delay: calc(var(--tlt-br-cnt) * 25ms / 2);
+
+  color: var(--main-color);
+  text-shadow: 0 0 1px rgba(8, 126, 164, 0.5),
+              0 0 3px rgba(8, 126, 164, 0.3),
+              0 0 4px rgba(8, 126, 164, 0.1);
+  opacity: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .unit {
+    display: block;
+    font-size: 1rem;
+    font-weight: 100;
+  }
+}
+
+@keyframes init-indicator-animation {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
+@keyframes init-helper-text-animation {
+  from {
+    margin-top: 0;
+    opacity: 0
+  }
+  to {
+    margin-top: 4rem;
+    opacity: 1
+  }
+}
