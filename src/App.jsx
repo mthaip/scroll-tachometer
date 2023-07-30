@@ -1,9 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Tachometer } from './Tachometer';
-import {
-  SCROLL_TO_TOP_DELAY,
-  getScrollBackDelatByScrollTop,
-} from './utils/velocityUtils';
+import { SCROLL_TIMER_DELAY } from './utils/velocityUtils';
 
 export const App = () => {
   const scrollableDivRef = useRef(null);
@@ -13,7 +10,6 @@ export const App = () => {
   var scrollTimer = null;
 
   const [scrollData, setScrollData] = useState({
-    isScrollingDown: true,
     lastPos: 0,
     currentPos: 0,
     timeStart: Date.now(),
@@ -37,12 +33,10 @@ export const App = () => {
 
     setScrollData((prev) => {
       const currentScrollTop = scrollableDiv.scrollTop;
-      const isScrollingUp = currentScrollTop < prev.currentPos;
 
-      // reset all if it starts scrolling DOWN
-      if (!prev.isScrollingDown && !isScrollingUp) {
+      // reset scroll data if it is scrolling up
+      if (currentScrollTop < prev.currentPos) {
         return {
-          isScrollingDown: true,
           lastPos: currentScrollTop,
           currentPos: currentScrollTop,
           timeStart: Date.now(),
@@ -50,28 +44,7 @@ export const App = () => {
         };
       }
 
-      // switch scrolling mode if it starts scrolling UP
-      if (prev.isScrollingDown && isScrollingUp) {
-        return {
-          ...prev,
-          isScrollingDown: false,
-        };
-      }
-
-      // update postions if it is scrolling up
-      if (isScrollingUp) {
-        // does not update last position if current greater than last position
-        const lastPos =
-          prev.currentPos > prev.lastPos ? prev.lastPos : currentScrollTop;
-
-        return {
-          ...prev,
-          lastPos,
-          currentPos: currentScrollTop,
-        };
-      }
-
-      // otherwise, it is scrolling down. Update current postion and time end
+      // otherwise, it is scrolling down. Update current position and time end
       return {
         ...prev,
         currentPos: currentScrollTop,
@@ -84,14 +57,15 @@ export const App = () => {
       clearTimeout(scrollTimer);
     }
 
-    // auto scroll back to top
+    // reset scroll data if it stops scrolling
     scrollTimer = setTimeout(() => {
-      const newScrollPos =
-        scrollableDiv.scrollTop -
-        getScrollBackDelatByScrollTop(scrollableDiv.scrollTop);
-
-      scrollableDiv.scrollTo(0, newScrollPos > 0 ? newScrollPos : 0);
-    }, SCROLL_TO_TOP_DELAY);
+      setScrollData((prev) => ({
+        ...prev,
+        lastPos: scrollableDiv.scrollTop,
+        timeStart: Date.now(),
+        timeEnd: Date.now(),
+      }));
+    }, SCROLL_TIMER_DELAY);
   };
 
   useEffect(() => {

@@ -1,30 +1,4 @@
 /**
- * calc how fast should it scroll back to top
- *
- * @param scrollTop current scroll top position
- * @returns delta
- * */
-export const getScrollBackDelatByScrollTop = (scrollTop) => {
-  if (scrollTop > 100 && scrollTop < 500) {
-    return 100;
-  }
-
-  if (scrollTop > 500 && scrollTop < 1000) {
-    return 200;
-  }
-
-  if (scrollTop > 1000 && scrollTop < 10000) {
-    return 500;
-  }
-
-  if (scrollTop > 10000) {
-    return 1500;
-  }
-
-  return 10;
-};
-
-/**
  * calc scroll velocity
  *
  * @param scrollData
@@ -45,5 +19,5 @@ export const getVelocityByScrollData = ({
 };
 
 // Constants
-export const SCROLL_TO_TOP_DELAY = 100;
+export const SCROLL_TIMER_DELAY = 100;
 export const INDICATOR_COUNT = 50;
