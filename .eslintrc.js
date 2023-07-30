@@ -18,8 +18,10 @@ module.exports = {
     es2020: true,
   },
   rules: {
-    'no-undef': 'warn',
     'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'warn',
+    'no-unused-vars': 'warn',
+    'react-hooks/exhaustive-deps': 'warn',
     'prettier/prettier': [
       'warn',
       {
